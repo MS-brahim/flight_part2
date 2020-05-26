@@ -1,204 +1,37 @@
-<?php 
-require_once 'dbconnect.php';
- 
-    $fname = $lname = $phone = $email = $passport = $password = $confirm_pwd ='';
-    $fname_err = $lname_err = $phone_err = $email_err = $passport_err = $password_err = $confirm_pwd_err ='';
-
-    // Processing form data when form is submitted
-    if($_SERVER["REQUEST_METHOD"] == "POST"){
-        // Validate firstname 
-        if(empty(trim($_POST['nom']))){
-            $fname_err = "Please enter your firstname";
-        }else{
-            // Prepare a select statement
-            $sql = "SELECT id_user FROM Utilisateur WHERE nom = ?";
-            
-            if($stmt = $con->prepare($sql)){
-                // Bind variables to the prepared statement as parameters
-                $stmt->bind_param("s", $param_fname);
-                
-                // Set parameters
-                $param_fname = trim($_POST["nom"]);
-                
-                // Attempt to execute the prepared statement
-                if($stmt->execute()){
-                    // store result
-                    $stmt->store_result();
-                    $fname = trim($_POST["nom"]);
-                } else{
-                    echo "Oops! Something went wrong. Please try again later.";
-                }
-    
-                // Close statement
-                $stmt->close();
-            }
-        }
-        // Validate lastname 
-        if(empty(trim($_POST["prenom"]))){
-            $lname_err = "Please enter your lastname";
-        }else{
-            // Prepare a select statement
-            $sql = "SELECT id_user FROM Utilisateur WHERE prenom = ?";
-            
-            if($stmt = $con->prepare($sql)){
-                // Bind variables to the prepared statement as parameters
-                $stmt->bind_param("s", $param_lname);
-                
-                // Set parameters
-                $param_lfname = trim($_POST["prenom"]);
-                
-                // Attempt to execute the prepared statement
-                if($stmt->execute()){
-                    // store result
-                    $stmt->store_result();
-                    $lname = trim($_POST["prenom"]);
-                } else{
-                    echo "Oops! Something went wrong. Please try again later.";
-                }
-    
-                // Close statement
-                $stmt->close();
-            }
-        }
-        // Validate phone number 
-        if(empty(trim($_POST["tel"]))){
-            $phone_err = "Please enter your phone number";
-        }else{
-            $sql ="SELECT id_user FROM Utilisateur WHERE tel = ?";
-            if($stmt = $con->prepare($sql)){
-                $stmt->bind_param("s", $param_phone);
-                $param_phone = trim($_POST["tel"]);
-                if($stmt->execute()){
-                    $stmt->store_result();
-                    $phone = trim($_POST["tel"]);
-                }else{
-                    echo "Oops! something went wrong. Please try again later.";
-                }
-            }
-        }
-        // Validate email 
-        if(empty(trim($_POST["email"]))){
-            $email_err = "Please enter your email";
-        }else{
-            $sql ="SELECT id_user FROM Utilisateur WHERE email = ?";
-            if($stmt = $con->prepare($sql)){
-                $stmt->bind_param("s", $param_email);
-                $param_email = trim($_POST["email"]);
-                if($stmt->execute()){
-                    $stmt->store_result();
-                    if($stmt->num_rows == 1){
-                        $email_err = "This email is already taken.";
-                    } else{
-                        $email = trim($_POST["email"]);
-                    }
-                }else{
-                    echo "Oops! something went wrong. Please try again later.";
-                }
-            }
-        }
-        // Validate passport number 
-        if(empty(trim($_POST["num_passport"]))){
-            $passport_err = "Please enter your passport";
-        }else{
-            $sql ="SELECT id_user FROM Utilisateur WHERE num_passport = ?";
-            if($stmt = $con->prepare($sql)){
-                $stmt->bind_param("s", $param_passport);
-                $param_passport = trim($_POST["num_passport"]);
-                if($stmt->execute()){
-                    $stmt->store_result();
-                    $passport = trim($_POST["num_passport"]);
-                }else{
-                    echo "Oops! something went wrong. Please try again later.";
-                }
-            }
-        }
-        // Validate password
-        if(empty(trim($_POST["mot_de_passe"]))){
-            $password_err = "Please enter a password.";     
-        } elseif(strlen(trim($_POST["mot_de_passe"])) < 6){
-            $password_err = "Password must have atleast 6 characters.";
-        } else{
-            $password = trim($_POST["mot_de_passe"]);
-        }
-        // Validate confirm password
-        if(empty(trim($_POST["confirm_password"]))){
-            $confirm_pwd_err = "Please confirm password.";     
-        } else{
-            $confirm_pwd = trim($_POST["confirm_password"]);
-            if(empty($password_err) && ($password != $confirm_pwd)){
-                $confirm_pwd_err = "Password did not match.";
-            }
-        }
-
-        // Check input errors before inserting in database
-        if(empty($fname_err) && empty($lname_err) && empty($phone_err) && empty($email_err) && empty($passport_err) && empty($password_err) && empty($confirm_pwd_err)){
-        
-            // Prepare an insert statement
-            $sql = "INSERT INTO Utilisateur (nom, prenom, tel, email, num_passport, mot_de_passe) VALUES (?, ?, ?, ?, ?, ?)";
-            
-            if($stmt = $con->prepare($sql)){
-                // Bind variables to the prepared statement as parameters
-                $stmt->bind_param("ssssss", $fname, $lname, $phone, $email, $passport, $password);
-                
-                // Set parameters
-                $param_fname = $fname;
-                $param_lname = $lname;
-                $param_phone = $phone;
-                $param_email = $email;
-                $param_passport = $passport;
-                $param_password = password_hash($password, PASSWORD_DEFAULT);
-                
-                // Attempt to execute the prepared statement
-                if($stmt->execute()){
-                    // Redirect to login page
-                    header("location: register.php");
-                } else{
-                    echo "Something went wrong. Please try again later.";
-                }
-
-                // Close statement
-                $stmt->close();
-            }
-        }
-        // Close connection
-        $con->close();
-    }
-   
-?>
+<?php include_once '../controller/register-controller.php'?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   
-	  <title>Airprice Company</title>
+	<title>Register</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  	<link rel="stylesheet" href="assets/css/style.css">
-    
-
+    <link rel="stylesheet" href="assets/css/style.css">
+      
 </head>
 <body>
 	<!-- start navbar  -->
 	<header>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="index.html"><img src="assets/logo.png" width=100></a>
+            <a class="navbar-brand" href="../index.html"><img src="assets/logo.png" width=100></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Reservation</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Voyage</a>
-                </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../index.html">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Promotion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Voyage</a>
+                    </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
                     <a href="" class="btn btn-light">
@@ -218,8 +51,8 @@ require_once 'dbconnect.php';
 	</header>
     <!-- end navbar  -->
     
-    <!-- start content from  sign in  -->
-    <div class="container">
+    <!-- start content from  register  -->
+    <div class="container" style="margin-top:60px">
         <div class="jumbotron">
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                 
@@ -257,7 +90,7 @@ require_once 'dbconnect.php';
                     <div class="col-sm-4">
                         <div class="form-group <?php echo (!empty($passport_err)) ? 'has-error' : ''; ?>">
                             <label for="">Passport number <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="num_passport" value="<?php echo $passport ?>">
+                            <input type="number" class="form-control" name="num_passport" value="<?php echo $passport ?>">
                             <small class="form-text text-danger"><?php echo $passport_err; ?></small>
                         </div>
                     </div>
@@ -285,7 +118,7 @@ require_once 'dbconnect.php';
             </form>
         </div>
     </div>
-    <!-- end content from  sign in  -->
+    <!-- end content from  register  -->
 
     <!-- start footer  -->
 	<footer>
