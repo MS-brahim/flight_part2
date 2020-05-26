@@ -1,9 +1,9 @@
-<?php include_once '../controller/register-controller.php'?>
+<?php include_once '../controllers/register-controller.php'?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   
-	<title>Register</title>
+	<title>Register | AirLux</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -34,7 +34,7 @@
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
-                    <a href="" class="btn btn-light">
+                    <a href="login.php" class="btn btn-light">
                         <i class="fa fa-user" aria-hidden="true"></i>
                         Log in
                     </a>

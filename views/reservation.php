@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Airprice Company</title>
+	<title>Price | AirLux</title>
     <meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -56,7 +56,7 @@
 
     <!-- start content reservation -->
     
-    <?php include_once '../controller/reservation-controller.php' ?>
+    <?php include_once '../controllers/reservation-controller.php' ?>
 
     <!-- Modal -->
     <div class='modal fade' id='modelId' tabindex='-1' role='dialog' aria-labelledby='modelTitleId' aria-hidden='true'>
@@ -68,7 +68,7 @@
                                     <span aria-hidden='true'>&times;</span>
                                 </button>
                         </div>
-                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                <form action="../index.html" method="post">
                     <div class='modal-body'>
                         <div class='container-fluid'>
                             <div class='row'>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   
-	  <title>Search flight</title>
+	  <title>Search | AirLux</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -146,7 +146,7 @@
 		
 		<h1>Search Result</h1>
 		
-		<?php include_once '../controller/searchResult-controller.php' ?>
+		<?php include_once '../controllers/searchResult-controller.php' ?>
 
 		<div class="table-responsive">
 			<table class="table table-hover">
