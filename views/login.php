@@ -1,4 +1,4 @@
-<?php include_once '../controllers/login-controller.php'?>
+<?php include_once '../model/dbconnect.php'?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,24 +52,49 @@
         </nav>
     </header>
     <!-- end navbar  -->
-    
+
     <div class="container">
         <div class="wrapper">
             <h2>Login</h2>
             <p>Please fill in your credentials to login.</p>
-            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                <div class="form-group <?php echo (!empty($email_err)) ? 'has-error' : ''; ?>">
+            <?php
+
+            session_start();
+
+            if(isset($_SESSION['user'])){
+                header('location: welcome.php');
+            };
+
+            if($_SERVER['REQUEST_METHOD']=='POST'){
+                $email= $_POST['email'];
+                $password= $_POST['password'];
+                $hachedPassword = sha1($password);
+
+                $stmt = $con->prepare("SELECT nom, email, mot_de_passe FROM utilisateur WHERE email= ? AND mot_de_passe= ?");
+                $stmt->execute(array($email, $hachedPassword));
+                $count = $stmt->rowcount();
+
+                if($count > 0){
+                    $_SESSION['user'] = $email; //Register  Session email
+                    header('location: welcome.php');
+                    exit();
+                }
+                
+            }
+            ?>
+            <form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST">
+                <div class="form-group">
                     <label>Username</label>
-                    <input type="text" name="email" class="form-control" value="<?php echo $email; ?>">
-                    <span class="help-block"><?php echo $email_err; ?></span>
+                    <input type="text" name="email" class="form-control">
+                    <span class="help-block"></span>
                 </div>    
-                <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
+                <div class="form-group">
                     <label>Password</label>
-                    <input type="password" name="mot_de_passe" class="form-control">
-                    <span class="help-block"><?php echo $password_err; ?></span>
+                    <input type="password" name="password" class="form-control">
+                    <span class="help-block"></span>
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-primary" value="Login">
+                    <input type="submit"  class="btn btn-primary" value="Login">
                     <input type="Reset" class="btn btn-danger" value="reset">
                 </div>
                 <p>Don't have an account? <a href="register.php">Sign up now</a>.</p>
