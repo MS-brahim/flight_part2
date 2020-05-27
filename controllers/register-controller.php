@@ -1,5 +1,12 @@
 <?php 
-require_once '../model/dbconnect.php';
+    session_start();
+
+    if(isset($_SESSION['user'])){
+        header('location: welcome.php');
+    };
+    
+    require_once '../model/dbconnect2.php';
+
  
     $fname = $lname = $phone = $email = $passport = $password = $confirm_pwd ="";
     $fname_err = $lname_err = $phone_err = $email_err = $passport_err = $password_err = $confirm_pwd_err ="";
@@ -144,7 +151,7 @@ require_once '../model/dbconnect.php';
             
             if($stmt = $con->prepare($sql)){
                 // Bind variables to the prepared statement as parameters
-                $stmt->bind_param("ssssss", $fname, $lname, $phone, $email, $passport, $password);
+                $stmt->bind_param("ssssss", $fname, $lname, $phone, $email, $passport, sha1($password));
                 
                 // Set parameters
                 $param_fname = $fname;
