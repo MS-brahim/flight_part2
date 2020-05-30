@@ -25,15 +25,15 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="../index.html">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Promotion</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Voyage</a>
-                </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../index.html">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Promotion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Voyage</a>
+                    </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
                     <a href="login.php" class="btn btn-light">
@@ -57,42 +57,19 @@
         <div class="wrapper">
             <h2>Login</h2>
             <p>Please fill in your credentials to login.</p>
-            <?php
 
-            session_start();
+            <?php include_once '../controllers/login-controller.php'?>
 
-            if(isset($_SESSION['user'])){
-                header('location: welcome.php');
-            };
-
-            if($_SERVER['REQUEST_METHOD']=='POST'){
-                $email= $_POST['email'];
-                $password= $_POST['password'];
-                $hachedPassword = sha1($password);
-
-                $stmt = $con->prepare("SELECT nom, email, mot_de_passe FROM utilisateur WHERE email= ? AND mot_de_passe= ?");
-                $stmt->execute(array($email, $hachedPassword));
-                $count = $stmt->rowcount();
-
-                if($count > 0){
-                    $_SESSION['user'] = $email; //Register  Session email
-                    header('location: welcome.php');
-                    exit();
-                }
-                
-            }
-            ?>
-            <form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST">
+            <form id="form" action="<?php echo $_SERVER['PHP_SELF']?>" method="POST">
                 <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" name="email" class="form-control">
-                    <span class="help-block"></span>
+                    <label>Email</label>
+                    <input type="email" id="emailLogin" name="email" class="form-control">
                 </div>    
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" name="password" class="form-control">
-                    <span class="help-block"></span>
+                    <input type="password" id="passLogin" name="password" class="form-control">
                 </div>
+                <div id="err_login" class="text-danger" style="margin-bottom:15px;"></div>
                 <div class="form-group">
                     <input type="submit"  class="btn btn-primary" value="Login">
                     <input type="Reset" class="btn btn-danger" value="reset">
@@ -148,10 +125,9 @@
 		</div>
 	</footer>
 	<!-- end footer  -->
-	
-	
 
-	
+
+    <script src="assets/js/login.js"></script>	
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

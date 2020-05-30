@@ -1,5 +1,5 @@
 <?php
-		require_once ('../model/dbconnect.php');
+		require_once ('../model/dbconnect2.php');
 
 		$from = $_POST['from'];
 		$to = $_POST['to'];

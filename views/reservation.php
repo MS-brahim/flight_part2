@@ -1,4 +1,4 @@
-<?php include_once '../model/dbconnect.php'; ?>
+<?php include_once '../model/dbconnect2.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

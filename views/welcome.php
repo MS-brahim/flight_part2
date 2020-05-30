@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>AirLux</title>
+	<title>Compte | AirLux</title>
     <meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
@@ -22,38 +22,55 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="../index.html">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Promotion</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Voyage</a>
-                </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../index.html">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Promotion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Voyage</a>
+                    </li>
+                    <li>
+                        <a href="newflight.php?id_user=<?= $row['id_user']?>" class="nav-link text-primary" style="margin:0 10px;">
+                            New Flight <b>+</b>
+                        </a>
+                    </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0" action="logout.php" method="post">
+                    <a>
+                    <?php
+                        session_start();
+
+                        if(isset($_SESSION['user'])){
+
+                            echo '' . $_SESSION['user'];
+
+                        }else{
+                            header('location: login.php');
+                            exit();
+                        }
+                    ?>
+                    </a>
+                    &nbsp;
+                    <div style="width:1px;background:black; height:25px;"></div>
+                    &nbsp;
                     <a href="../controllers/logout.php" class="btn btn-light" type="submit">
-                    <i class="fas fa-user"> <b>Logout</b></i>
+                    <i class="fas fa-sign-out-alt"> <b>Logout</b></i>
                     </a>
                 </form>
             </div>
         </nav>
     </header>
     <!-- end navbar  -->
-    <?php
-    session_start();
 
-    if(isset($_SESSION['user'])){
-
-        echo 'welcome' . $_SESSION['user'];
-
-    }else{
-        header('location: login.php');
-        exit();
-    }
-    ?>
-
+    <!-- start flight content  -->
+    <div class="container">
+        <div class="row">
+            
+        </div>
+    </div>
+    <!-- end flight content  -->
 	
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
