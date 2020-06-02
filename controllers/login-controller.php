@@ -3,7 +3,15 @@
     session_start();
 
     if(isset($_SESSION['user'])){
-        header('location: welcome.php');
+        // if ($count == 1 ) 
+        // {
+            header('location: ../views/welcome.php');
+        // }else{
+        //     header('location :../views/users.php');
+        // }
+    };
+    if(isset($_SESSION['user'])){
+        header('location: users.php');
     };
 
     if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -11,15 +19,16 @@
         $password= $_POST['password'];
         $hachedPassword = sha1($password);
         
-        $stmt = $con->prepare("SELECT nom, email, mot_de_passe FROM utilisateur WHERE email= ? AND mot_de_passe= ? AND groupID=1");
+        $stmt = $con->prepare("SELECT nom, email, mot_de_passe,groupID FROM utilisateur WHERE email= ? AND mot_de_passe= ?");
         $stmt->execute(array($email, $hachedPassword));
         $count = $stmt->rowcount();
-
-        if($count > 0){
-        $_SESSION['user'] = $email; //Register  Session email
-            header('location: welcome.php');
-            exit();
+        
+        
+        $_SESSION['user'] = $email; //Register Session email
+        if ($count == 1 ) {
+            header("Location: ../views/welcome.php");                
+        } else {
+            header("Location: ../index.html");
         }
-                
     }
 ?>

@@ -11,5 +11,4 @@
 		$prep_request->execute();
 		$result=$prep_request->get_result();
 
-		
 	?>

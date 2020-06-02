@@ -71,7 +71,7 @@
                 </div>
                 <div id="err_login" class="text-danger" style="margin-bottom:15px;"></div>
                 <div class="form-group">
-                    <input type="submit"  class="btn btn-primary" value="Login">
+                    <input type="submit" name="sub"  class="btn btn-primary" value="Login">
                     <input type="Reset" class="btn btn-danger" value="reset">
                 </div>
                 <p>Don't have an account? <a href="register.php">Sign up now</a>.</p>

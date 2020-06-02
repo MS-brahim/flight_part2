@@ -1,4 +1,5 @@
 <?php
+    
         $id = $_GET['id_vol'];
         $sql2 = "SELECT * FROM vols WHERE id_vol= " .$_GET['id_vol'];
         $result = $con->query($sql2);
@@ -16,7 +17,7 @@
                     <div class='jumbotron'>
                         <div class='text-center' style='margin-bottom:30px;'>
                             <a type='button' class='btn btn-danger text-white' href='../index.html'>Cancel <i class='fa fa-window-close' aria-hidden='true'></i></a>
-                            <a type='button' class='btn btn-primary text-white' data-toggle='modal' data-target='#modelId' >Reservation <img src='assets/depart.png' width=20></a>
+                            <a type='button' class='btn btn-primary text-white' href='#infoForm' >Reservation <img src='assets/depart.png' width=20></a>
                         </div>
                         <div style='margin:0 100px;'>
                         <div class='row'>
