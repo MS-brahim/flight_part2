@@ -100,7 +100,9 @@
                                     <div class="row">
                                        <div class="col-9 ">Personal inofrmation</div>
                                     <div class="col-3 text-right">
-                                        <a href="" data-toggle="modal" data-target="#updateuser" aria-hidden="true"><i class="fas fa-edit"></i></a>
+                                        <a href="" data-toggle="modal" data-target="#editUser<?php echo $rows['id_user']?>" aria-hidden="true">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
                                     </div> 
                                     </div>
                                 </div>
@@ -131,47 +133,23 @@
 
 
 
-            <!-- Modal -->
-            <div class="modal fade" id="updateuser" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <form action="" method="post">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">Update Informations</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        <div class="modal-body">
-                            <input type="text" name="nom" value="<?php echo $rows['nom'];?>"><br>
-                            <input type="text" name="prenom"><br>
-                            <input type="text" name="tel"><br>
-                            <input type="text" name="email"><br>
-                            <input type="text" name="num_passport"><br>
-
-                        </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <input type="submit" name="update" class="btn btn-primary" value="Save changes">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+            <!-- Modal button update user info -->
+            
 
             <?php
-                // if(isset($_POST['update'])){
+                // if(isset($_POST['updateUser'])){
                 //     $id = $_POST['id_user'];
 
-                    // $query = "UPDATE 'Utilisateur' SET nom = '$_POST[nom]', prenom = '$_POST[prenom]', tel = '$_POST[tel]', email = '$_POST[email]', num_passport = '$_POST[num_passport]' WHERE id_user = '$_POST[id_user]' ";
-                    // $query_rum = mysqli_query($con,$query);
+                //     $query = "UPDATE 'Utilisateur' SET nom = '$_POST[nom]', prenom = '$_POST[prenom]', tel = '$_POST[tel]', email = '$_POST[email]', num_passport = '$_POST[num_passport]' WHERE id_user = '$_POST[id_user]' ";
+                //     $query_rum = mysqli_query($con,$query);
 
-                    // if($query_run){
-                    //     echo "<script> alert('Data update')</script>";
-                    // }else{
-                    //     echo "<script> alert('Data Not update')</script>";
-                    // }
+                //     if($query_run){
+                //         echo "<script> alert('Data update')</script>";
+                //     }else{
+                //         echo "<script> alert('Data Not update')</script>";
+                //     }
                 // }
+                include_once "updateuser.php";
             ?>
 
 
