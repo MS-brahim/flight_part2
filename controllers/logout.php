@@ -1,11 +1,7 @@
-<?php
-  // Initialiser la session
-  session_start();
-  
-  // Détruire la session.
-  if(session_destroy())
-  {
-    // Redirection vers la page de connexion
-    header("Location: ../views/login.php");
-  }
+<?php 
+if (isset($_POST['logout'])) {
+    session_destroy();
+    unset($_SESSION['user']);
+    header("location: ../views/login.php");
+}
 ?>

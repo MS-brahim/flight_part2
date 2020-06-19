@@ -1,23 +1,27 @@
+<?php
+//session
+session_start();
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
-	<title>Search | AirLux</title>
+	<title>AirLux</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<link rel="stylesheet" href="assets/css/style.css">
 	<script src="https://kit.fontawesome.com/8f45faa16b.js" crossorigin="anonymous"></script>
 
+	
+
 </head>
 <body>
-	<?php 
-	session_start();
-	include_once "parts/navbar.php";
-	?>
-
+<?php include_once "parts/navbar.php"?>
+	
 	<!-- start content  -->
 	<div class="container-fluid">
 		<div class="position-relative">
@@ -46,19 +50,19 @@
 			<!-- end carusel slides  -->
 
 			<!-- start search from  -->
-			<div class="position-absolute"  id="cntfrom">
+			<div class="position-absolute" id="cntfrom">
 
 				<div class="contentform" id="homepage">
 					<div class="btn-group btn-group-justified" style="width:100%;" >			
 						<div class="btn-group">
-							<button id="button1" type="button" href="#SearchResult" class="btn btn-primary">Search by city</button>
+							<button id="button1" type="button" href="#SearchResult" class="btn btn-primary" >Search by city</button>
 						</div>
 						<div class="btn-group">
 							<button id="button2" type="button" href="#all" class="btn btn-primary">Search all flights</button>
 						</div>
 					</div>
 					<hr />
-					<!-- Start search Search Result  -->
+					<!-- Start search  Result -->
 					<div id="SearchResult">
 						<form role="form" action="SearchResult.php" method="post">
 							<div class="row">
@@ -82,9 +86,9 @@
 							</div>
 						</form>
 					</div>
-					<!-- end search Search Result  -->
+					<!-- end search  Result   -->
 				
-					<!-- end search Search Result All  -->
+					<!-- end search  Result All  -->
 					<div id="all">
 						<form role="form" action="SearchResultAll.php" method="post">
 							<div class="row"> 
@@ -107,56 +111,9 @@
 			<!-- end search from  -->
 		</div>
 	</div>
+	<!-- end content   -->
 
-
-	<div class="container" id="rslt">    
-		
-		<h1>Search Result</h1>
-		
-		<?php include_once '../controllers/searchResult-controller.php' ?>
-
-		<div class="table-responsive">
-			<table class="table table-hover">
-				<thead>
-					<tr>
-						<th>Flight</th>
-						<th>Departure</th>
-						<th>Arrival</th>
-						<th>Departure Time</th>
-						<th>Arrival Time</th>
-						<th>Price</th>
-						<th>Remain Seats</th>
-						<th> Reservation </th>
-					</tr>
-				</thead>
-				<tbody>
-				<?php 
-				$rowCount = mysqli_num_rows($result);
-				if($rowCount == 0){
-					echo "<p class='alert alert-danger' role='alert'>".$rowCount." result</p>";
-				}else{
-					echo "<p class='alert alert-info' role='alert'>".$rowCount." results</p>";
-				while ($row = $result->fetch_assoc()) { ?>
-					<tr>
-						<td><?= $row['nom_vol'] ;?></td>
-						<td><?= $row['departure'] ;?></td>
-						<td><?= $row['arrival'] ;?></td>
-						<td><?= $row['d_depart'] ;?></td>
-						<td><?= $row['d_arrival'] ;?></td>
-						<td><?= $row['prix'] ;?></td>
-						<td><?= $row['place'] ;?></td>
-						<td>
-							<a class="btn btn-primary " href="reservation.php?id_vol=<?= $row['id_vol']; ?>">Show more</i></a>
-						</td>
-					</tr>
-				<?php } }?>
-				</tbody>
-			</table>
-		</div>
-		
-	</div>
-	<!-- end content  -->
-
+	
 	<?php
     include_once "parts/footer.php";
     include_once "parts/scripts.php";
