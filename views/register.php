@@ -19,27 +19,27 @@
     <!-- start content from  register  -->
     <div class="container" style="margin-top:60px">
         <div class="jumbotron">
-            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+            <form action="../controllers/register-controller.php" method="POST">
                 
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="form-group <?php echo (!empty($fname_err)) ? 'has-error' : ''; ?>">
                             <label for="">First name <span class="text-danger">*</span></label>
-                            <input class="form-control" type="text" name="nom" value="<?php echo $fname ?>">
+                            <input class="form-control" type="text" name="fname" value="<?php echo $fname ?>">
                             <small class="form-text text-danger"><?php echo $fname_err; ?></small>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group <?php echo (!empty($lname_err)) ? 'has-error' : ''; ?>">
                             <label for="">Last name <span class="text-danger">*</span></label>
-                            <input class="form-control" type="text" name="prenom" value="<?php echo $lname ?>">
+                            <input class="form-control" type="text" name="lname" value="<?php echo $lname ?>">
                             <small class="form-text text-danger"><?php echo $lname_err; ?></small>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group <?php echo (!empty($phone_err)) ? 'has-error' : ''; ?>">
                             <label for="">Phone number <span class="text-danger">*</span></label>
-                            <input class="form-control" type="tel" name="tel" value="<?php echo $phone ?>">
+                            <input class="form-control" type="tel" name="phone" value="<?php echo $phone ?>">
                             <small class="form-text text-danger"><?php echo $phone_err; ?></small>
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                     <div class="col-sm-4">
                         <div class="form-group <?php echo (!empty($passport_err)) ? 'has-error' : ''; ?>">
                             <label for="">Passport number <span class="text-danger">*</span></label>
-                            <input type="number" class="form-control" name="num_passport" value="<?php echo $passport ?>">
+                            <input type="number" class="form-control" name="numPassport" value="<?php echo $passport ?>">
                             <small class="form-text text-danger"><?php echo $passport_err; ?></small>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
                     <div class="col-sm-6">
                         <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
                             <label for="">Password <span class="text-danger">*</span></label>
-                            <input type="password" class="form-control" name="mot_de_passe" >
+                            <input type="password" class="form-control" name="password" >
                             <small class="form-text text-danger"><?php echo $password_err; ?></small>
                         </div>
                     </div>
@@ -77,7 +77,7 @@
                     </div>
                 </div>
                 <p class="lead">
-                    <input class="btn btn-primary btn-lg" type="submit" value="Register">
+                    <input class="btn btn-primary btn-lg" type="submit" name="register" value="Register">
                     <input class="btn btn-warning btn-lg" type="reset" value="reset">
                 </p>
             </form>

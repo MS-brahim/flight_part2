@@ -1,10 +1,13 @@
-<?php 
-	include('../controllers/login-controller.php');
-	if (!isAdmin()) {
-		$_SESSION['msg'] = "You must log in first";
-		header('location: login.php');
-	}
-
+<?php
+session_start();
+//return to login if not logged in
+if (!isset($_SESSION['user']) ||(trim ($_SESSION['user']) == '')){
+	header('location:index.php');
+}
+include_once('../controllers/details.php');
+if($row['groupID']==0){
+	header('location: indexuser.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,22 +65,20 @@
                                     <div class="row">
                                        <div class="col-9 ">Personal inofrmation</div>
                                     <div class="col-3 text-right">
-                                        <a href="" data-toggle="modal" data-target="#editUser<?php echo $rows['id_user']?>" aria-hidden="true">
+                                        <a href="" data-toggle="modal" data-target="#editUser<?php echo $row['id_user']?>" aria-hidden="true">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                     </div> 
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                <?php  if (isset($_SESSION['user'])) : ?>
-                                    <p class="card-text"><b>Full Name : </b><?php echo $_SESSION['user']['nom']." ".$_SESSION['user']['prenom']; ?></p>
+                                    <p class="card-text"><b>Full Name : </b><?php echo $row['nom']." ".$row['prenom']; ?></p>
                                     <hr>
-                                    <p class="card-text"><b>Email : </b><?php echo $_SESSION['user']['email'];?></p>
+                                    <p class="card-text"><b>Email : </b><?php echo $row['email'];?></p>
                                     <hr>
-                                    <p class="card-text"><b>Phone : </b><?php echo $_SESSION['user']['tel'];?></p>
+                                    <p class="card-text"><b>Phone : </b><?php echo $row['tel'];?></p>
                                     <hr>
-                                    <p class="card-text"><b>N° passeport : </b><?php echo $_SESSION['user']['num_passport'];?></p>
-                                <?php endif ?>                             
+                                    <p class="card-text"><b>N° passeport : </b><?php echo $row['num_passport'];?></p>
                                 </div>
                             </div>
                         </div>
@@ -150,34 +151,12 @@
                             <input type="submit" name="addVol" id="submit" class="btn btn-primary" value="insert">
                         </form>
                     </div>
-                <!-- <form action="" method="POST" style="margin: 0 100px;">
-                    <input type="text" name="nam"/> <br>
-                    <input type="text" name="depart"/> <br>
-                    <input type="text" name="arrival"/> <br>
-                    <input type="datetime-local" name="d_depart"/> <br>
-                    <input type="datetime-local" name="d_arrival"/> <br>
-                    <input type="number" name="prix"/> <br>
-                    <input type="number" name="place"/> <br>
-                    
-                    <input type="submit" name="sub" value="ADD"/> <br>
-                </form> -->
                 
-                <?php
-                    // add new airline 
-                    if(isset($_POST['addVol'])){
-                        include "../models/volsclass.php";
-                        $nam = $_POST ['nam'];
-                        $dep = $_POST['depart'];
-                        $arriv = $_POST['arrival'];
-                        $tDep = $_POST['d_depart'];
-                        $tArv = $_POST['d_arrival'];
-                        $prix = $_POST['prix'];
-                        $place = $_POST['place'];
-                     
-                        $obj = new flight();
-                        $addV = $obj->saveVols($nam,$dep,$arriv,$tDep,$tArv,$prix,$place);                   
-                    }
-                ?>
+                    <?php
+                        // new airline 
+                        include "../controllers/airline.php";
+                        
+                    ?>
 
                     <!-- start flight content  -->
                     <div class="input-group mb-3">
@@ -202,9 +181,10 @@
                                 <tbody  id="searchLine">
                             
                                 <?php
+                                include_once "../models/connect_DB.php";
                                 // show all flight 
-                                $sql = "SELECT *  FROM vols";
-                                $result = $con->query($sql);
+                                $sqlS = "SELECT *  FROM vols";
+                                $result = $con->query($sqlS);
 
                                 if ($result->num_rows != 0) {
                                     // output data of each row

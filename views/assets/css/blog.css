@@ -1,23 +1,9 @@
-.main {
-    max-width: 1000px;
-    margin: auto;
-    
-  }
-  .row {
-    margin: 10px -16px;
-    text-align: center;
-  }
-  
-  .row,
-  .row > .column {
-    padding: 8px;
-  }
+
   
   .column {
-    float: left;
-    width: 370px;
     display: none;
-    margin: auto;
+    justify-content: center;
+    flex-wrap: wrap;
   }
   
   .row:after {

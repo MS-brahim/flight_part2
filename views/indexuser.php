@@ -1,9 +1,15 @@
-<?php 
-    include('../controllers/login-controller.php');
-	if (!isLoggedIn()) {
-		$_SESSION['msg'] = "You must log in first";
-		header('location: login.php');
-	}
+<?php
+session_start();
+//return to login if not logged in
+if (!isset($_SESSION['user']) ||(trim ($_SESSION['user']) == '')){
+	header('location:index.php');
+}
+
+include_once('../controllers/details.php');
+
+if($row['groupID']==1){
+	header('location: admin.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,13 +73,13 @@
                                 </div>
                                 <div class="card-body">
                                 <?php  if (isset($_SESSION['user'])) : ?>
-                                    <p class="card-text"><b>Full Name : </b><?php echo $_SESSION['user']['nom']." ".$_SESSION['user']['prenom']; ?></p>
+                                    <p class="card-text"><b>Full Name : </b><?php echo $row['nom']." ".$row['prenom']; ?></p>
                                     <hr>
-                                    <p class="card-text"><b>Email : </b><?php echo $_SESSION['user']['email'];?></p>
+                                    <p class="card-text"><b>Email : </b><?php echo $row['email'];?></p>
                                     <hr>
-                                    <p class="card-text"><b>Phone : </b><?php echo $_SESSION['user']['tel'];?></p>
+                                    <p class="card-text"><b>Phone : </b><?php echo $row['tel'];?></p>
                                     <hr>
-                                    <p class="card-text"><b>N° passeport : </b><?php echo $_SESSION['user']['num_passport'];?></p>
+                                    <p class="card-text"><b>N° passeport : </b><?php echo $row['num_passport'];?></p>
                                 <?php endif ?>                             
                                 </div>
                             </div>

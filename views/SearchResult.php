@@ -15,7 +15,9 @@
 <body>
 	<?php 
 	session_start();
+	include_once('../controllers/details.php');
 	include_once "parts/navbar.php";
+	
 	?>
 
 	<!-- start content  -->

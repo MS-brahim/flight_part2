@@ -1,5 +1,6 @@
 <?php 
 session_start();
+include_once('../controllers/details.php');
 include_once '../models/connect_db.php'; 
 
 ?>

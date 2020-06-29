@@ -22,19 +22,16 @@
                 <form class="form-inline my-2 my-lg-0">
                     <?php if(isset($_SESSION['user'])): ?>
 							
-					<strong class="text-primary" ><a type="submit" href="login.php"><?php echo $_SESSION['user']['nom']." ".$_SESSION['user']['prenom']; ?></a></strong>&nbsp;
+					<strong class="text-primary" ><a type="submit" href="login.php"><?php echo $row['prenom']." ".$row['nom']; ?></a></strong>&nbsp;
 					<small>
 						<i  style="color: #888;">
-                        <?php 
-                        if($_SESSION['user']['groupID'] == 1){
-                            echo "Admin";
-                            } ?>
+                        <?php echo $row['groupID'];?>
 						</i> 
 					</small>
 					&nbsp;
                     <div style="width:1px;background:black; height:25px;"></div>
                     &nbsp;
-					<a href="indexuser.php?logout='1'" class="btn btn-light" type="submit">
+					<a href="../controllers/logout.php" class="btn btn-light" type="submit">
                     	<i class="fas fa-sign-out-alt"> <b>Logout</b></i>
                     </a>
 					<?php else: ?>

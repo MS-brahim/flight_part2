@@ -50,4 +50,30 @@
             ";
         }
     }
+
+    
+    require_once '../models/volsclass.php';
+    $reservation = new Vols();
+    if(isset($_POST['reserve'])){
+
+        $fname = $reservation->santString($_POST['fname']);
+        $lname = $reservation->santString($_POST['lname']);
+        $phone = $reservation->santString($_POST['phone']);
+        $email = $reservation->santString($_POST['email']);
+        $passport = $reservation->santString($_POST['numPassport']);
+
+            $registerValid = $reservation->addClient($fname, $lname,$phone,$email,$passport);
+        
+            if(!$registerValid){
+                echo 'Invalid username or password';
+                header('location: ../views/register.php');
+                
+            }
+            else{
+                $_SESSION['user'] = $registerValid;
+                header('location: ../views/register.php');
+            }
+        }
+
+    }
     ?>

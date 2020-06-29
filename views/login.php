@@ -1,13 +1,17 @@
-<?php include('../controllers/login-controller.php');
-if(isset($_SESSION['user'])){
-	if($_SESSION['user']['groupID']==1){
-		header('location: admin.php');
-	}elseif($_SESSION['user']['groupID']==0){
-		header('location: index.php');
+<?php
+	//start session
+	session_start();
+
+	//redirect if logged in
+	if(isset($_SESSION['user'])){
+
+        if( $_SESSION['groupID']==1){
+            header('location: admin.php');
+        }else{
+            header('location: indexuser.php');
+        }
 	}
-	
-};
- ?>
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,8 +38,18 @@ if(isset($_SESSION['user'])){
 						background: #d8d8d838;
     					padding: inherit;
 						box-shadow: 2px 2px 6px gray">
-						
-				<form method="post" action="" id="form" >
+						<?php
+                        if(isset($_SESSION['message'])){
+                            ?>
+                                <div class="alert alert-danger text-center">
+                                    <?php echo $_SESSION['message']; ?>
+                                </div>
+                            <?php
+
+                            unset($_SESSION['message']);
+                        }
+                    ?>
+				<form method="post" action="../controllers/login-controller.php" id="form" >
 					<p class="lead">Welcome To Services AirLux</p>
 					<div class="row">
 						<div class="col">

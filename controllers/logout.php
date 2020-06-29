@@ -1,7 +1,5 @@
-<?php 
-if (isset($_POST['logout'])) {
-    session_destroy();
-    unset($_SESSION['user']);
-    header("location: ../views/login.php");
-}
+<?php
+	session_start();
+	session_destroy();
+	header('location:../views/login.php');
 ?>
