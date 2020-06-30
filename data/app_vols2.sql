@@ -34,8 +34,22 @@ create table Reservation
    id_reservation       int not null,
    id_client            int not null,
    id_vol               int not null,
+   id_user              int not null,
    date_reservation     int,
    primary key (id_reservation),
    FOREIGN KEY (id_client) REFERENCES client (id_client),
-   FOREIGN KEY (id_vol) REFERENCES Vols (id_vol)
+   FOREIGN KEY (id_vol) REFERENCES Vols (id_vol),
+   FOREIGN KEY (id_user) REFERENCES utilisateur (id_user)
 )
+
+CREATE TABLE client (
+  id_client int(11) NOT NULL,
+  nom varchar(254) NOT NULL,
+  prenom varchar(254) NOT NULL,
+  phone int(20) NOT NULL,
+  email varchar(254) NOT NULL,
+  num_passport int(11) NOT NULL,
+  id_user int(11) NOT NULL,
+  primary key (id_client),
+  FOREIGN KEY (id_user) REFERENCES utilisateur (id_user)
+) 

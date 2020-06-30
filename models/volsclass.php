@@ -21,13 +21,10 @@ class Vols extends connectDb {
                     return true;
                 }else{
                     die("Error : ".mysqli_error($this->conn));
-             }
+            }
         }    
     } 
-    public function addClient($fname, $lname,$phone,$email,$passport)
-    {
-        # code...
-    }
+   
     // filter values
     public function santString($value){
         $str = trim($value);
