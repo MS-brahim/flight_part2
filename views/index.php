@@ -1,8 +1,11 @@
 <?php
 //session
 session_start();
+if(isset($_SESSION['user'])){
+	include_once('../controllers/details.php');
+}
 
-include_once('../controllers/details.php');
+
 
 ?>
 <!DOCTYPE html>

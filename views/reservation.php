@@ -1,5 +1,6 @@
 <?php 
 session_start();
+ob_start();
 include_once('../controllers/details.php');
 include_once '../models/connect_db.php'; 
 
@@ -29,7 +30,6 @@ include_once '../models/connect_db.php';
     require_once '../models/reservClass.php';
     $reservation = new Reserve();
     
-    $errors = "";
     if(isset($_POST['reserve'])){
 
         $fname = $reservation->santString($_POST['fname']);
@@ -38,26 +38,32 @@ include_once '../models/connect_db.php';
         $email = $reservation->santString($_POST['email']);
         $passport = $reservation->santString($_POST['numPassport']);
 
-        $id_client = $_POST['id_client'];
-
+        $idU = $_SESSION['user'];
+        $id_user = $idU;
         $id_vol = $_GET['id_vol'];
 
-        $id_user = $_SESSION['id_user'];
-
-        $reserv = $reservation->addClient($fname, $lname,$phone,$email,$passport,$id_user);
-        $reser2 = $reservation->addReserve($id_client,$reserv,$id_vol,$id_user);
+        $id_client = $reservation->addClient($fname, $lname,$phone,$email,$passport,$id_user);
         
-        if($reserv){
-            echo "Booked successfully";
+
+        $reser2 = $reservation->addReserve($id_client,$id_vol,$id_user);
+        
+        if($id_client){
+            
+            echo "<div class='container'><div class='alert alert-success'>Booked successfully</div></div>";
+            if($reser2==true){
+                header('location: confirmation.php?id_client=<?php .$id_client.?>');
+                ob_end_clean();
+            }
         }
         else{
-            echo 'Submission error !! try again';
+            echo "<div class='container'><div class='alert alert-danger'>Submission error !! try again</div></div>";
         }
+        
     }
 
     
     ?>
-    <div class='container'>
+    <div class='container' id="confirm">
         <div class=''>
             <div class='modal-content'>
                 <form action="" method="post">
@@ -101,7 +107,7 @@ include_once '../models/connect_db.php';
                         </div>
                     </div>
                     <div class='modal-footer'>
-                        <input type="submit" class="btn btn-primary" name='reserve' value='Reservation'>
+                        <input type="submit" href="" class="btn btn-primary" name='reserve' value='Reservation'>
                     </div>
                 </form>
             </div>

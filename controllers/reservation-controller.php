@@ -21,7 +21,7 @@
                         <form action='' method='post'>
                             <div class='text-center' style='margin-bottom:30px;'>
                                 <a type='button' class='btn btn-danger text-white' href='../index.php'>Cancel <i class='fa fa-window-close' aria-hidden='true'></i></a>
-                                <a type='button' class='btn btn-primary text-white' >Reservation <img src='../views/assets/depart.png' width=20></a>
+                                <a type='button' class='btn btn-primary text-white' href='#confirm'  >Reservation <img src='../views/assets/depart.png' width=20></a>
                             </div>
                         </form>
                         <div style='margin:0 100px;'>

@@ -31,7 +31,7 @@ CREATE TABLE Utilisateur (
 
 create table Reservation
 (
-   id_reservation       int not null,
+   id_reservation       int not null AUTO_INCREMENT,
    id_client            int not null,
    id_vol               int not null,
    id_user              int not null,
@@ -43,7 +43,7 @@ create table Reservation
 )
 
 CREATE TABLE client (
-  id_client int(11) NOT NULL,
+  id_client int(11) NOT NULL AUTO_INCREMENT,
   nom varchar(254) NOT NULL,
   prenom varchar(254) NOT NULL,
   phone int(20) NOT NULL,

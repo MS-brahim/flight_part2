@@ -94,7 +94,57 @@ if($row['groupID']==1){
 
           
             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                nbnbnb
+            <div class="row">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Flight</th>
+                                        <th>Departure</th>
+                                        <th>Arrival</th>
+                                        <th>Departure Time</th>
+                                        <th>Arrival Time</th>
+                                        <th>Price</th>
+                                        <th>Place</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody  id="searchLine">
+                            
+                                <?php
+                                include_once "../models/connect_DB.php";
+                                // show all flight 
+                                $sqlS = "SELECT *  FROM reservation";
+                                $result = $con->query($sqlS);
+
+                                if ($result->num_rows != 0) {
+                                    // output data of each row
+                                    while($row = $result->fetch_assoc()) { 
+
+                                ?>
+                                            <tr>
+                                                <td><?php echo $row["id_vol"]?></td>
+                                                <td><?php echo $row["nom_vol"]?></td>
+                                                <td><?php echo $row["departure"]?></td>
+                                                <td><?php echo $row["arrival"]?></td>
+                                                <td><?php echo $row["d_depart"]?></td>
+                                                <td><?php echo $row["d_arrival"]?></td>
+                                                <td><?php echo $row["prix"]?></td>
+                                                <td><?php echo $row["place"]?></td>
+                                                <td><button class="btn btn-success" type="button"<?php echo $row['id_vol']?>">Open</button></td>
+                                            </tr>                                   
+                                <?php
+                                    }
+                                }
+                            
+                                $con->close();
+                                ?>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
             </div>
         </div>
     </div>
