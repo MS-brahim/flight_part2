@@ -13,10 +13,8 @@ class Reserve extends connectDb {
             if(empty($fname) or empty($lname) or empty($phone) or empty($email) or empty($passport) ){
                 return false;
             }else{
-    
                 $sqlC = "INSERT INTO client (nom, prenom, phone, email, num_passport, id_user) 
                         VALUES ('$fname', '$lname', '$phone', '$email', '$passport','$id_user')";
-                        
                 if(mysqli_query($this->conn,$sqlC)){
                     $id_client = $this->conn->insert_id;
                     return $id_client;            
@@ -28,31 +26,24 @@ class Reserve extends connectDb {
 
         $sqlR = "INSERT INTO reservation (id_client, id_vol, id_user) 
                 VALUES ('$id_client', '$id_vol','$id_user')";
-
         mysqli_query($this->conn,$sqlR);
         return true;
-            
-        
     }
 
-    public function reserveID($id_reserve)
+    public function reserveID($idU)
     {
-        $query = "SELECT * FROM reservation WHERE id_reservation='$id_reserve'";
-        $stmt = $this->conn->prepare($query);
-		$stmt->execute();
-		$result = $stmt->get_result();
-		return  $result;
-    }
-
-    // history 
-    function reserve_join($id_user) {
-
-        $query = "SELECT id_reservation,id_client,id_vol, date_reservation FROM reservation INNER JOIN utilisateur ON reservation.id_user=utilisateur.id_user AND utilisateur.id_user = '$id_user'";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return  $result;
-            
+        $sql = "SELECT * FROM reservation R 
+                INNER JOIN utilisateur U ON U.id_user = '$idU'
+                INNER JOIN client C ON C.id_client = R.id_client
+                INNER JOIN vols V ON R.id_vol = V.id_vol
+                where R.id_user = '$idU'
+                ";
+        $array = array();
+        $query = mysqli_query($this->conn,$sql);
+        while($row = mysqli_fetch_assoc($query)){
+            $array[] = $row;
+        }
+        return $array;
     }
 
     // filter values

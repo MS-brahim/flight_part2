@@ -6,7 +6,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<link rel="stylesheet" href="assets/css/style.css">
 	<script src="https://kit.fontawesome.com/8f45faa16b.js" crossorigin="anonymous"></script>
@@ -145,13 +144,18 @@
 						<td><?= $row['arrival'] ;?></td>
 						<td><?= $row['d_depart'] ;?></td>
 						<td><?= $row['d_arrival'] ;?></td>
-						<td><?= $row['prix'] ;?></td>
+						<td><?= $row['prix'] ;?> Dh</td>
 						<td><?= $row['place'] ;?></td>
 						<td>
+						<?php if($row['status'] === 1) { ?>
 							<a class="btn btn-primary " href="reservation.php?id_vol=<?= $row['id_vol']; ?>">Show more</i></a>
+						<?php } else { ?>
+							<button type="button"  class="btn btn-danger "disabled>inactive <i class="fas fa-plane-slash"></i></button>
+						<?php }?>
 						</td>
 					</tr>
-				<?php } }?>
+					<?php } 
+				}?>
 				</tbody>
 			</table>
 		</div>

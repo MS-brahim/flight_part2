@@ -1,6 +1,6 @@
 <?php
     if(!isset($_SESSION['user'])){
-        echo "frftgt";
+        header("location: ../views/login.php");
     }else{
     
         $id = $_GET['id_vol'];

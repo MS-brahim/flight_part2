@@ -26,40 +26,7 @@ include_once '../models/connect_db.php';
     <!-- start content reservation -->
     <?php 
     include_once '../controllers/reservation-controller.php';
-
-    require_once '../models/reservClass.php';
-    $reservation = new Reserve();
-    
-    if(isset($_POST['reserve'])){
-
-        $fname = $reservation->santString($_POST['fname']);
-        $lname = $reservation->santString($_POST['lname']);
-        $phone = $reservation->santString($_POST['phone']);
-        $email = $reservation->santString($_POST['email']);
-        $passport = $reservation->santString($_POST['numPassport']);
-
-        $idU = $_SESSION['user'];
-        $id_user = $idU;
-        $id_vol = $_GET['id_vol'];
-
-        $id_client = $reservation->addClient($fname, $lname,$phone,$email,$passport,$id_user);
-        
-
-        $reser2 = $reservation->addReserve($id_client,$id_vol,$id_user);
-        
-        if($id_client){
-            
-            echo "<div class='container'><div class='alert alert-success'>Booked successfully</div></div>";
-            if($reser2==true){
-                header('location: confirmation.php?id_client=<?php .$id_client.?>');
-                ob_end_clean();
-            }
-        }
-        else{
-            echo "<div class='container'><div class='alert alert-danger'>Submission error !! try again</div></div>";
-        }
-        
-    }
+    include_once '../controllers/reservation-controller2.php';
 
     
     ?>

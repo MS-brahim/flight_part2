@@ -25,7 +25,7 @@
 					<strong class="text-primary" ><a type="submit" href="login.php"><?php echo $row['prenom']." ".$row['nom']; ?></a></strong>&nbsp;
 					<small>
 						<i  style="color: #888;">
-                        <?php echo $row['groupID'];?>
+                        <?php if($row['groupID']==1) echo"(Admin)"; ?>
 						</i> 
 					</small>
 					&nbsp;

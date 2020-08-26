@@ -13,7 +13,7 @@ class reserve {
         return $con;
     }
     
-    public function addTicket($fname,$lname,$phone,$email,$passport,){
+    public function addTicket($fname,$lname,$phone,$email,$passport){
         $conn=$this->connect();
         mysqli_query($conn,"INSERT INTO ".$this->tableVols."(
             nom_vol,departure,arrival, d_depart, d_arrival, prix, place) VALUES('$fn','$dep','$arv','$tdep','$tArv','$prx','$plce')") or die(

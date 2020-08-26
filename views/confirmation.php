@@ -24,35 +24,63 @@ include_once '../models/connect_db.php';
 
     <!-- start content confimermation -->
     <div class="container mt-4">
-        <h1 class='text-center'>Confirm Your Reserve</h1>
+        <h1 class='text-center'>Confirm your reservation</h1>
         <form action="">
             <div class="jumbotron">
+            
                 <?php
-                    $Confirm ="SELECT * FROM vols";
-                    $sql = "SELECT * FROM client";
-                    $sql2 = "SELECT * FROM reservation";
-                    $result = $con->query($Confirm);
+                    $sql2 = "SELECT * FROM reservation R 
+                    INNER JOIN client C ON R.id_client = C.id_client
+                    INNER JOIN vols V ON R.id_vol = V.id_vol
+                    where R.id_reservation = (SELECT MAX(id_reservation) FROM reservation)
+                    ";
+                    $result = $con->query($sql2);
                     if ($result->num_rows != 0) {
                         // output data of each row
                         while($row = $result->fetch_assoc()) { 
 
                     ?>
-                                <tr>
-                                    vol id <td><?php echo $row["id_vol"]?></td><br>
-                                    client id <td><?php echo $row["departure"]?></td><br>
-                                    <hr>
-                                </tr>   
-                                                                
+                    
+                        <ul class="list-group ">
+                            <li class="list-group-item">
+                                <span>Customer name :</span> <b><?php echo $row["nom"] ." ". $row["prenom"]?></b>
+                            </li>
+                            <li class="list-group-item">
+                                <span>Customer passport  :</span> <b><?php echo $row["num_passport"]?></b>
+                            </li>
+                            <li class="list-group-item">
+                                <span>Customer Phone  :</span> <b><?php echo $row["phone"]?></b>
+                            </li>
+                            <li class="list-group-item">
+                                <span>Customer email  :</span> <b><?php echo $row["email"]?></b>
+                            </li>
+                            <li class="list-group-item">
+                                <span>Deservation date :</span> <b><?php echo $row["date_reservation"]?></b>
+                            </li>
+                            <li class="list-group-item">
+                                <span>Flight name :</span> <b><?php echo $row["nom_vol"]?></b>
+                            </li>
+                            <li class="list-group-item">
+                                <span>Departure :</span> <b><?php echo $row["departure"]?></b>
+                                at <b><?php echo $row["d_depart"]?></b>
+                            </li>
+                            <li class="list-group-item">
+                                <span>Arrival :</span> <b><?php echo $row["arrival"]?></b>
+                                at <b><?php echo $row["d_arrival"]?></b>
+                            </li>
+                            <li class="list-group-item">
+                                <span>Price :</span> <b><?php echo $row["prix"]?></b>
+                            </li>
+                        </ul>
+                        <p class="lead text-center mt-2">
+                            <a class="btn btn-primary btn-lg text-white" href="index.php" >Confirm</a>
+                        </p>
                     <?php
                         }
                     }
-                
                     $con->close();
-                    
                 ?>
-                <p class="lead text-center">
-                    <a class="btn btn-primary btn-lg text-white" href="index.php" >Confirm</a>
-                </p>
+                
             </div>
         </form>
     </div>

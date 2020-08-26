@@ -7,7 +7,18 @@ class Vols extends connectDb {
     {
         parent::__construct();
     }
-    // register 
+    
+    public function select($table)
+    {
+        $sql = "SELECT * FROM ".$table;
+        $array = array();
+        $query = mysqli_query($this->conn,$sql);
+        while($row = mysqli_fetch_assoc($query)){
+            $array[] = $row;
+        }
+        return $array;
+    }
+
     public function insertVols($nam,$dep,$arriv,$tDep,$tArv,$prix,$place){
         
         if(empty($nam) or empty($dep) or empty($arriv) or empty($tDep) or empty($tArv) or empty($prix) or empty($place)){
@@ -24,6 +35,17 @@ class Vols extends connectDb {
             }
         }    
     } 
+
+    public function delete($idV){
+        $sql = "DELETE FROM vols WHERE id_vol = '$idV'";
+        $res = mysqli_query($this->conn, $sql);
+        if($res){
+            return true;
+        }else{
+            return false;
+            
+        }
+    }
    
     // filter values
     public function santString($value){
