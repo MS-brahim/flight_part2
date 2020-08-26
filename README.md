@@ -23,4 +23,4 @@ HTML5 CSS3 Bootstrap Javascript jQuery PHP/SQL and database mySql Server.
 
 for admin : email : m@m.com / password : BHUBHUBHU
 
-for user : email : 4@gmail.com / password: BHUBHU
+for user : email : b@b.com / password: BHUBHUBHU
